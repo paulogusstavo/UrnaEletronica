@@ -1,0 +1,45 @@
+
+public class Impressao {
+
+//----------------------------------------------------------------------------
+	public void tipoConta () {
+		System.out.println("----------SELECIONE O TIPO DE CONTA----------");
+		System.out.println("1.Adminstrativo");
+		System.out.println("2.Usuário");
+		System.out.println("0.Encerrar");
+		System.out.print("\nOpção:");
+}
+//----------------------------------------------------------------------------	
+	public void administrativo () {
+		System.out.println("----------ADMINISTRATIVO----------");
+		System.out.println("1.Cadastro de Candidato");
+		System.out.println("2.Cadastro de Eleitor");
+		System.out.println("3.Relatório");
+		System.out.println("0.Voltar");
+		System.out.print("\nOpção:");
+	}
+//----------------------------------------------------------------------------
+	public void usuario () {
+		System.out.println("----------VOTAÇÃO----------");
+		System.out.print("Informe a zona de votação:");
+		System.out.print("Informe a seccao de votação:");
+		System.out.println("");
+	}
+//----------------------------------------------------------------------------
+	public void senhaInvalida () {
+		System.out.println("----------SENHA INVÁLIDA----------");
+		System.out.println("Digite 0 para cancelar.");
+		System.out.print("Digite sua senha:");
+	}
+//----------------------------------------------------------------------------
+	public void cadastroCandidato () {
+		System.out.println("----------CADASTRO CANDIDATO----------");
+		System.out.print("Informe o título de eleitor: ");
+	}
+//----------------------------------------------------------------------------
+	public void cadastroEleitor () {
+		
+	}
+//----------------------------------------------------------------------------
+
+}

@@ -1,0 +1,11 @@
+
+public class Candidato {
+	private String Nome;
+	private int numeroVotacao;
+
+	public Candidato(String Nome, int numeroVotacao ) {
+		this.Nome = Nome;
+		this.numeroVotacao = numeroVotacao;
+		
+	}
+}

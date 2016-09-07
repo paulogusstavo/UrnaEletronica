@@ -1,0 +1,58 @@
+import java.util.*;
+
+public class Principal {
+
+	public static void main(String[] args) 
+	{	
+		Scanner lerTeclado = new Scanner(System.in);
+		Impressao menu = new Impressao();
+		Urna urna = new Urna();
+
+		menu.tipoConta();
+		byte selecao = lerTeclado.nextByte();
+		
+		//-----------------------------------------------------------------
+		do {
+			switch (selecao) 
+			{
+			case 0:
+				System.out.println("------------------------------");
+				System.out.print("O programa foi encerrado!");
+				break;
+			case 1:
+				System.out.print("Digite sua senha:");
+				int senhaTemp = lerTeclado.nextInt();
+				
+				if (urna.checarSenha(senhaTemp)) {
+					menu.administrativo();
+					byte opcao = lerTeclado.nextByte();
+					
+					switch (opcao) {
+					case 0:
+						menu.tipoConta();
+						selecao = lerTeclado.nextByte();
+						break;
+					case 1:
+						break;
+					}
+					
+				}
+				else {
+					menu.senhaInvalida();
+					senhaTemp = lerTeclado.nextInt();
+					if (senhaTemp == 0)
+						selecao = 0;
+				}
+				break;
+			case 2:
+				
+				break;
+				
+			default: 
+				System.out.print("Opção inválida, digite uma opção:");
+				break;
+			}
+		} while (selecao != 0);
+	}
+
+}

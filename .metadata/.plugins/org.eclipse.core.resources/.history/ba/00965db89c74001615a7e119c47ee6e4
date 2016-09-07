@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Principal {
+
+	public static void main(String[] args) 
+	{
+		int senha = 12345;
+		byte selecao=0;
+		//Impressão Menu
+		System.out.println("----------SELECIONE O TIPO DE CONTA----------");
+		System.out.println("1.Adminstrativo");
+		System.out.println("2.Usuário");
+		
+		//TODO: Colocar system in 
+		
+		switch (selecao) {
+		case 1:
+			System.out.print("Informe sua senha:");
+			break;
+		case 2:
+			
+			break;
+			
+		default: 
+			System.out.print("Opção inválida, digite uma opção:");
+			break;
+		
+		}
+
+	}
+
+}

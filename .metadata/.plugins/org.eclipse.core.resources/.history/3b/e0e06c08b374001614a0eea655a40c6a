@@ -1,0 +1,64 @@
+import java.util.*;
+
+public class Principal {
+	private int senha;
+	
+	private void impressaoMenu () {
+		
+	}
+	
+	private boolean checarSenha (int senha) {
+		if (this.senha == senha)
+			return true;
+		else
+			return false;
+	}
+	
+	public static void main(String[] args) 
+	{
+		int senha = 12345;
+		byte selecao=0;
+		//Impressão Menu
+		System.out.println("----------SELECIONE O TIPO DE CONTA----------");
+		System.out.println("1.Adminstrativo");
+		System.out.println("2.Usuário");
+		System.out.println("0.Encerrar");
+		
+		//TODO: Colocar system IN
+		
+		switch (selecao) {
+		case 0:
+			System.out.print("O programa foi encerrado!");
+			break;
+		case 1:
+			System.out.println("----------INFORME SUA SENHA----------");
+			System.out.print("Digite 0 para cancelar. Semnha: ");
+			int senhaTemp;
+			//TODO:Insert the system in here.
+			while (senhaTemp != senha) {
+				if (senhaTemp == 0)
+						break;
+				System.out.println("Senha inválida! Tente novamente.");
+				System.out.print("Semnha: ");
+			}
+			System.out.println("----------ADMINISTRATIVO----------");
+			System.out.println("2.Cadastro de Candidato");
+			System.out.println("1.Cadastro de Eleitor");
+			System.out.println("3.Relatório");
+			break;
+		case 2:
+			System.out.println("----------VOTAÇÃO----------");
+			System.out.print("Informe a zona de votação:");
+			System.out.print("Informe a seccao de votação:");
+			System.out.println("");
+			break;
+			
+		default: 
+			System.out.print("Opção inválida, digite uma opção:");
+			break;
+		
+		}
+
+	}
+
+}

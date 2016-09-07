@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Urna {
+	private Candidato candidato;
+	private Eleitor eleitor;
+	private boolean confirma;
+	private boolean corrige;
+	private boolean votoBranco;
+	
+	private void cadastroCandidato () {
+		
+	}
+	
+	private void cadastroVereador () {
+		int 
+		
+	}
+	
+	public void relatorio () {
+		
+		
+	}
+	
+	private boolean confirmacao() {
+		
+		return true;
+	}
+
+}

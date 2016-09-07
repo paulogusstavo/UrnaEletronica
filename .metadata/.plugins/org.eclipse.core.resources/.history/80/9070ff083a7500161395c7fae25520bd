@@ -1,0 +1,15 @@
+
+public class Candidato {
+	private String nome;
+	private int numeroVotacao;
+
+	public Candidato(String nome, int numeroVotacao ) {
+		this.nome = nome;
+		this.numeroVotacao = numeroVotacao;	
+	}
+	
+	public String getNome () { return Nome; }
+	
+	public int getNumeroVotacao () { return numeroVotacao; }
+
+}

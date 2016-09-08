@@ -4,11 +4,11 @@ INDEX VERSION 1.129+/Users/paulogusstavo/Desktop/UrnaEletronica/.metadata/.plugi
 590046460.index
 449899765.index
 2421648630.index
-1540970505.index
-496848936.index
-562105188.index
-1639014433.index
 782179996.index
+496848936.index
+1639014433.index
+562105188.index
+1540970505.index
 1456874680.index
 3059193231.index
 1390355476.index

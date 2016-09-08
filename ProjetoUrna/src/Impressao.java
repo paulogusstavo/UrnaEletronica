@@ -8,11 +8,11 @@ public class Impressao {
 
 //----------------------------------------------------------------------------
 	public void tipoConta () {
-		System.out.println("----------SELECIONE O TIPO DE CONTA----------");
+		System.out.println("----------SELECIONE A CONTA----------");
 		System.out.println("1.Adminstrador");
 		System.out.println("2.Eleitor");
-		System.out.println("0.Encerrar");
-		System.out.print("\nOpção:");
+		System.out.println("\n0.Encerrar");
+		System.out.print("Opção:");
 }
 //----------------------------------------------------------------------------	
 	public void administrativo () {
@@ -30,36 +30,48 @@ public class Impressao {
 		System.out.print("Digite sua senha:");
 	}
 //----------------------------------------------------------------------------
-	public void eleitor () {
+	public void resultado () {
+		System.out.println("----------RESULTADO FINAL----------");
+		if (listaDeCandidatos.size() == 0)
+			System.out.println("Nenhum candidato cadastrado.\n");
+		else
+			for (int i=0; i<listaDeCandidatos.size();i++) {
+			System.out.println((i+1) + "." + listaDeCandidatos.get(i).getNome() + " - Votos: " + listaDeCandidatos.get(i).getVotos());
+			}
+	}
+//----------------------------------------------------------------------------
+	public void eleitor () 
+	{
 		@SuppressWarnings("resource")
 		Scanner lerTeclado = new Scanner(System.in);
 		System.out.println("----------VOTAÇÃO----------");
-		System.out.print("ZONA de votação: ");
-		int zona = lerTeclado.nextInt();
-		System.out.print("SEÇÃO de votação: ");
-		int secao = lerTeclado.nextInt();
-		
-		for (int i=0; i<listaDeEleitores.size();i++) {
-			if (listaDeEleitores.get(i).getZona() == zona && listaDeEleitores.get(i).getSecao() == secao) {
-				System.out.println("----------DADOS ACEITOS----------");
-				System.out.print("Número do candidato: ");
-				int num = lerTeclado.nextInt();
-				for (int j=0; j<listaDeCandidatos.size();j++) {
-					if (listaDeCandidatos.get(i).getNumeroVotacao() == num) {
-						listaDeCandidatos.get(i).adicionaVotos();
-						System.out.println("----------VOTAÇÃO REALIZADA COM SUCESSO!----------");
-					}
-					else {
-						System.out.println("Candidato não encontrado!");
+		if (listaDeEleitores.size() == 0)
+			System.out.println("Nenhum eleitor cadastrado.\n");
+		else {
+			System.out.print("ZONA de votação: ");
+			int zona = lerTeclado.nextInt();
+			System.out.print("SEÇÃO de votação: ");
+			int secao = lerTeclado.nextInt();
+			
+			for (int i=0; i<listaDeEleitores.size();i++) {
+				if (listaDeEleitores.get(i).getZona() == zona && listaDeEleitores.get(i).getSecao() == secao) {
+					System.out.println("\nDADOS ACEITOS");
+					System.out.print("Número do candidato: ");
+					int num = lerTeclado.nextInt();
+					
+					for (int j=0; j<listaDeCandidatos.size();j++) {
+						if (listaDeCandidatos.get(j).getNumeroVotacao() == num) {
+							listaDeCandidatos.get(j).adicionaVotos();
+							System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
+							continue;
+						}
 					}
 				}
-			}
-			else {
-				System.out.println("ZONA E/OU SEÇÃO INVÁLIDOS.");
+				else {
+					System.out.println("ZONA E/OU SEÇÃO INVÁLIDOS.");
+				}
 			}
 		}
-		
-		System.out.println("");
 	}
 //----------------------------------------------------------------------------
 	public void cadastroCandidato () {

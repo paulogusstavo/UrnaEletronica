@@ -8,9 +8,9 @@ public class Principal {
 		
 		Scanner lerTeclado = new Scanner(System.in);
 		Impressao menu = new Impressao();
-		Urna urna = new Urna();
 		
 		boolean sair=true, sair2=true;
+		byte opcao;
 
 		menu.tipoConta();
 		byte selecao = lerTeclado.nextByte();
@@ -25,12 +25,13 @@ public class Principal {
 				sair = false;
 				break;
 			case 1: //Administrativo
-				System.out.print("Digite sua senha:");
+				/*	System.out.print("Digite sua senha:");
 				int senhaTemp = lerTeclado.nextInt();
 				
-				if (urna.checarSenha(senhaTemp)) {
+				if (urna.checarSenha(senhaTemp)) { */
+					sair2 = true;
 					menu.administrativo();
-					byte opcao = lerTeclado.nextByte();
+					opcao = lerTeclado.nextByte();
 					
 					//---------------------------------------------------------------
 					while (sair2) {
@@ -43,19 +44,18 @@ public class Principal {
 							
 						case 1: //CadastroCandidato
 							menu.cadastroCandidato();
-							opcao = 99;
+							menu.administrativo();
+							opcao = lerTeclado.nextByte();
 							break;
 
 						case 2: //CadastroEleitos
 							menu.cadastroEleitor();
-							opcao = 99;
+							menu.administrativo();
+							opcao = lerTeclado.nextByte();
 							break;
 							
 						case 3: //Resultados
-							
-							break;
-						
-						case 99:
+							menu.resultado();
 							menu.administrativo();
 							opcao = lerTeclado.nextByte();
 							break;
@@ -67,17 +67,18 @@ public class Principal {
 						}
 					}
 					//---------------------------------------------------------------
-				}
-				else {
+				//}
+			/*	else {
 					//TODO: Senha invalida.
 					menu.senhaInvalida();
 					senhaTemp = lerTeclado.nextInt();
 					if (senhaTemp == 0)
 						selecao = 0;
-				}
+				} */
 				break;
 			case 2: //Eleitor
 				menu.eleitor();
+				menu.tipoConta();
 				selecao = lerTeclado.nextByte();
 				break;
 				

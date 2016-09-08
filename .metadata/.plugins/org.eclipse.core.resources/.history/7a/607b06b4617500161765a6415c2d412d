@@ -41,22 +41,9 @@ public class Impressao {
 		
 		for (int i=0; i<listaDeEleitores.size();i++) {
 			if (listaDeEleitores.get(i).getZona() == zona && listaDeEleitores.get(i).getSecao() == secao) {
-				System.out.println("----------DADOS ACEITOS----------");
-				System.out.print("Número do candidato: ");
-				int num = lerTeclado.nextInt();
-				for (int j=0; j<listaDeCandidatos.size();j++) {
-					if (listaDeCandidatos.get(i).getNumeroVotacao() == num) {
-						listaDeCandidatos.get(i).adicionaVotos();
-						System.out.println("----------VOTAÇÃO REALIZADA COM SUCESSO!----------");
-					}
-					else {
-						System.out.println("Candidato não encontrado!");
-					}
-				}
+				System.out.println("DADOS ACEITOS!");
 			}
-			else {
-				System.out.println("ZONA E/OU SEÇÃO INVÁLIDOS.");
-			}
+			
 		}
 		
 		System.out.println("");

@@ -1,7 +1,6 @@
 import java.util.*;
 
-public class Urna 
-{
+public class Urna {
 	private int senha=1234;
 	
 	private Candidato candidato;
@@ -28,7 +27,7 @@ public class Urna
 		
 	}
 	
-	public void resuldato () {
+	public void relatorio () {
 		
 	}
 	

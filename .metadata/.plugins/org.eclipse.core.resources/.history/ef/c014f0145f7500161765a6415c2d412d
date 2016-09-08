@@ -5,11 +5,12 @@ public class Principal {
 	public static void main(String[] args) 
 	{	
 		@SuppressWarnings("resource")
-		
 		Scanner lerTeclado = new Scanner(System.in);
+		ArrayList<Eleitor> listaDeEleitores = new ArrayList<Eleitor>();
+		ArrayList<Candidato> listaDeCandidatos = new ArrayList<Candidato>();
+		
 		Impressao menu = new Impressao();
 		Urna urna = new Urna();
-		
 		boolean sair=true, sair2=true;
 
 		menu.tipoConta();
@@ -42,12 +43,30 @@ public class Principal {
 							break;
 							
 						case 1: //CadastroCandidato
-							menu.cadastroCandidato();
+							System.out.println("----------CADASTRO CANDIDATO----------");
+							System.out.print("Nome: ");
+							String nome = lerTeclado.nextLine();
+							System.out.print("Número de votação: ");
+							int votacao = lerTeclado.nextInt();
+							
+							Candidato c = new Candidato(nome, votacao);
+							listaDeCandidatos.add(c);
+							System.out.println("\nCandidato cadastrado com sucesso!");
 							opcao = 99;
 							break;
 
 						case 2: //CadastroEleitos
-							menu.cadastroEleitor();
+							System.out.println("----------CADASTRO ELEITORES----------");
+							System.out.print("Nome: ");
+							String auxNome = lerTeclado.nextLine();
+							System.out.print("ZONA: ");
+							int zona = lerTeclado.nextInt();
+							System.out.print("SEÇÃO: ");
+							int secao = lerTeclado.nextInt();
+							
+							Eleitor e = new Eleitor(auxNome, zona, secao);
+							listaDeEleitores.add(e);
+							System.out.println("\nEleitor cadastrado com sucesso!");
 							opcao = 99;
 							break;
 							
@@ -77,8 +96,7 @@ public class Principal {
 				}
 				break;
 			case 2: //Eleitor
-				menu.eleitor();
-				selecao = lerTeclado.nextByte();
+				
 				break;
 				
 			default: 

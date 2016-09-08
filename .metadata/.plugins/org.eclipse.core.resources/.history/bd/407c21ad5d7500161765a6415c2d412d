@@ -5,11 +5,9 @@ public class Principal {
 	public static void main(String[] args) 
 	{	
 		@SuppressWarnings("resource")
-		
 		Scanner lerTeclado = new Scanner(System.in);
 		Impressao menu = new Impressao();
 		Urna urna = new Urna();
-		
 		boolean sair=true, sair2=true;
 
 		menu.tipoConta();
@@ -40,26 +38,41 @@ public class Principal {
 							selecao = lerTeclado.nextByte();
 							sair2 = false;
 							break;
-							
 						case 1: //CadastroCandidato
-							menu.cadastroCandidato();
-							opcao = 99;
-							break;
-
-						case 2: //CadastroEleitos
-							menu.cadastroEleitor();
-							opcao = 99;
-							break;
+							ArrayList<Candidato> listaDeCandidatos = new ArrayList<Candidato>();
+							System.out.println("----------CADASTRO CANDIDATO----------");
+							System.out.print("Nome: ");
+							String nome = lerTeclado.nextLine();
+							System.out.print("Número de votação: ");
+							int votacao = lerTeclado.nextInt();
 							
+							Candidato c = new Candidato(nome, votacao);
+							listaDeCandidatos.add(c);
+							System.out.println("\nCandidato cadastrado com sucesso!");
+							opcao = 99;
+							break;
+						case 2: //CadastroEleitor
+							ArrayList<Eleitor> listaDeEleitores = new ArrayList<Eleitor>();
+							System.out.println("----------CADASTRO ELEITORES----------");
+							System.out.print("Nome: ");
+							String nome = lerTeclado.nextLine();
+							System.out.print("ZONA: ");
+							int zona = lerTeclado.nextInt();
+							System.out.print("SEÇÃO: ");
+							int secao = lerTeclado.nextInt();
+							
+							Eleitor e = new Eleitor(nome, zona, secao);
+							listaDeEleitores.add(e);
+							System.out.println("\nEleitor cadastrado com sucesso!");
+							opcao = 99;
+							break;
 						case 3: //Resultados
 							
 							break;
-						
 						case 99:
 							menu.administrativo();
 							opcao = lerTeclado.nextByte();
 							break;
-						
 						default:
 							System.out.print("Opção inválida, digite uma opção:");
 							opcao = lerTeclado.nextByte();
@@ -77,8 +90,7 @@ public class Principal {
 				}
 				break;
 			case 2: //Eleitor
-				menu.eleitor();
-				selecao = lerTeclado.nextByte();
+				
 				break;
 				
 			default: 

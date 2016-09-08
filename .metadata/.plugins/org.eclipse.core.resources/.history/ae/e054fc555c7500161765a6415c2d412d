@@ -5,11 +5,9 @@ public class Principal {
 	public static void main(String[] args) 
 	{	
 		@SuppressWarnings("resource")
-		
 		Scanner lerTeclado = new Scanner(System.in);
 		Impressao menu = new Impressao();
 		Urna urna = new Urna();
-		
 		boolean sair=true, sair2=true;
 
 		menu.tipoConta();
@@ -40,26 +38,21 @@ public class Principal {
 							selecao = lerTeclado.nextByte();
 							sair2 = false;
 							break;
-							
 						case 1: //CadastroCandidato
 							menu.cadastroCandidato();
 							opcao = 99;
 							break;
-
-						case 2: //CadastroEleitos
+						case 2: //CadastroEleitor
 							menu.cadastroEleitor();
 							opcao = 99;
 							break;
-							
-						case 3: //Resultados
+						case 3: //Relatório
 							
 							break;
-						
 						case 99:
 							menu.administrativo();
 							opcao = lerTeclado.nextByte();
 							break;
-						
 						default:
 							System.out.print("Opção inválida, digite uma opção:");
 							opcao = lerTeclado.nextByte();
@@ -67,6 +60,7 @@ public class Principal {
 						}
 					}
 					//---------------------------------------------------------------
+					
 				}
 				else {
 					//TODO: Senha invalida.
@@ -76,9 +70,8 @@ public class Principal {
 						selecao = 0;
 				}
 				break;
-			case 2: //Eleitor
-				menu.eleitor();
-				selecao = lerTeclado.nextByte();
+			case 2: //Usuário
+				
 				break;
 				
 			default: 
@@ -87,6 +80,6 @@ public class Principal {
 				break;
 			}
 		}
-		//---------------------------------------------------------------------------
 	}
+
 }

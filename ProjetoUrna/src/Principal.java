@@ -7,9 +7,9 @@ public class Principal {
 		@SuppressWarnings("resource")
 		
 		Scanner lerTeclado = new Scanner(System.in);
-		Impressao menu = new Impressao();
+		UrnaEletronica menu = new UrnaEletronica();
 		
-		boolean sair=true, sair2=true;
+		boolean auxSenha, sair=true, sair2=true;
 		byte opcao;
 
 		menu.tipoConta();
@@ -25,10 +25,9 @@ public class Principal {
 				sair = false;
 				break;
 			case 1: //Administrativo
-				/*	System.out.print("Digite sua senha:");
-				int senhaTemp = lerTeclado.nextInt();
+				auxSenha = menu.verificaSenha();
 				
-				if (urna.checarSenha(senhaTemp)) { */
+				if (auxSenha) {
 					sair2 = true;
 					menu.administrativo();
 					opcao = lerTeclado.nextByte();
@@ -40,26 +39,32 @@ public class Principal {
 							menu.tipoConta();
 							selecao = lerTeclado.nextByte();
 							sair2 = false;
-							break;
 							
-						case 1: //CadastroCandidato
-							menu.cadastroCandidato();
+							break;
+						case 1: //CadastroPrefeito
+							menu.cadastroPrefeito();
 							menu.administrativo();
 							opcao = lerTeclado.nextByte();
+							
 							break;
-
-						case 2: //CadastroEleitos
+						case 2: //CadastroVereador
+							menu.cadastroVereador();
+							menu.administrativo();
+							opcao = lerTeclado.nextByte();
+							
+							break;
+						case 3: //CadastroEleitor
 							menu.cadastroEleitor();
 							menu.administrativo();
 							opcao = lerTeclado.nextByte();
-							break;
 							
-						case 3: //Resultados
+							break;
+						case 4: //Resultados
 							menu.resultado();
 							menu.administrativo();
 							opcao = lerTeclado.nextByte();
+							
 							break;
-						
 						default:
 							System.out.print("Opção inválida, digite uma opção:");
 							opcao = lerTeclado.nextByte();
@@ -67,14 +72,11 @@ public class Principal {
 						}
 					}
 					//---------------------------------------------------------------
-				//}
-			/*	else {
-					//TODO: Senha invalida.
-					menu.senhaInvalida();
-					senhaTemp = lerTeclado.nextInt();
-					if (senhaTemp == 0)
-						selecao = 0;
-				} */
+				} else {
+				System.out.println("\nSenha Invalida!");
+				menu.tipoConta();
+				selecao = lerTeclado.nextByte();
+				}
 				break;
 			case 2: //Eleitor
 				menu.eleitor();

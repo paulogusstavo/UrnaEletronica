@@ -1,0 +1,25 @@
+
+public class Vereador {
+	private String nome;
+	private String numeroVotacao;
+	private int votos;
+	private int votosBrancos;
+
+	public Vereador (String nome, String numeroVotacao ) {
+		this.nome = nome;
+		this.numeroVotacao = numeroVotacao;	
+	}
+	
+	public void adicionaVotos () { votos++; }
+	
+	public int getVotos () { return votos; } 
+	
+	public void votoBranco () { votosBrancos++; }
+	
+	public int getVotosBrancos () { return votosBrancos; }
+	
+	public String getNome () { return nome; }
+	
+	public String getNumeroVotacao () { return numeroVotacao; }
+
+}

@@ -86,12 +86,6 @@ public class UrnaEletronica {
 		if (listaDeEleitores.size() == 0) {
 			System.out.println("Nenhum eleitor cadastrado.\n");
 			return false;
-		} else if (listaDePrefeitos.size() == 0){
-			System.out.println("Nenhum Prefeito cadastrado.\n");
-			return false;
-		} else if (listaDeVereadores.size() == 0) {
-			System.out.println("Nenhum Vereador cadastrado.\n");
-			return false;
 		}
 		else {
 			System.out.print("ZONA de votação: ");
@@ -147,7 +141,7 @@ public class UrnaEletronica {
 		String userVoto = lerTeclado.next();
 		
 		if (userVoto.equals("branco")) {
-			addBrancoVereador();
+			addBrancoPrefeito();
 			System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
 			return true;
 		}

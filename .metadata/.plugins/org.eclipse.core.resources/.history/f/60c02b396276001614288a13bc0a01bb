@@ -79,88 +79,45 @@ public class UrnaEletronica {
 		
 	}
 //----------------------------------------------------------------------------
-	public boolean eleitor () {
+	public void eleitor () {
 		@SuppressWarnings("resource")
 		Scanner lerTeclado = new Scanner(System.in);
 		System.out.println("----------VOTAÇÃO----------");
-		if (listaDeEleitores.size() == 0) {
+		if (listaDeEleitores.size() == 0)
 			System.out.println("Nenhum eleitor cadastrado.\n");
-			return false;
-		} else if (listaDePrefeitos.size() == 0){
-			System.out.println("Nenhum Prefeito cadastrado.\n");
-			return false;
-		} else if (listaDeVereadores.size() == 0) {
-			System.out.println("Nenhum Vereador cadastrado.\n");
-			return false;
-		}
 		else {
 			System.out.print("ZONA de votação: ");
 			int zona = lerTeclado.nextInt();
 			System.out.print("SEÇÃO de votação: ");
 			int secao = lerTeclado.nextInt();
 			
-			for (int i=0; i<listaDeEleitores.size();) {
+			for (int i=0; i<listaDeEleitores.size();i++) {
 				if (listaDeEleitores.get(i).getZona() == zona 
 						&& listaDeEleitores.get(i).getSecao() == secao) {
 					System.out.println("\nOlá, " + listaDeEleitores.get(i).getNome() + ".\n");
 					System.out.println("Para voto BRANCO, digite branco.");
-					return true;
+					System.out.print("Número do Prefeito: ");
+					String userVoto = lerTeclado.next();
+//TODO: Votação para Vereador.
+					if (userVoto.equals("branco")) {
+						addBrancoPrefeito();
+						continue;
+					}
+					for (int j=0; j<listaDePrefeitos.size();j++) {
+						if (listaDePrefeitos.get(j).getNumeroVotacao().equals(userVoto)) {
+							listaDePrefeitos.get(j).adicionaVotos();
+							System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
+							return;
+						}
+						
+					}
+					System.out.println("\nCANDIDATO NÃO ENCONTRADO.");
 				}
 				else {
 					System.out.println("ZONA E/OU SEÇÃO INVÁLIDOS.");
-					return false;
 				}
 			}
 		}
-		return true;
-	}
-//----------------------------------------------------------------------------
-	public boolean votarPrefeito () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println(">>>Prefeito");
-		System.out.print("Número do candidato: ");
-		String userVoto = lerTeclado.next();
-
-		if (userVoto.equals("branco")) {
-			addBrancoPrefeito();
-			return true;
-		}
-		
-		for (int j=0; j<listaDePrefeitos.size();j++) {
-			if (listaDePrefeitos.get(j).getNumeroVotacao().equals(userVoto)) {
-				listaDePrefeitos.get(j).adicionaVotos();
-				return true;
-			}
-			
-		}
-		System.out.println("\nCANDIDATO NÃO ENCONTRADO.");
-		return false;
-	}
-	
-//----------------------------------------------------------------------------
-	public boolean votarVereador () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println(">>>Vereador");
-		System.out.print("Número do candidato: ");
-		String userVoto = lerTeclado.next();
-		
-		if (userVoto.equals("branco")) {
-			addBrancoVereador();
-			System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
-			return true;
-		}
-		
-		for (int j=0; j<listaDeVereadores.size();j++) {
-			if (listaDeVereadores.get(j).getNumeroVotacao().equals(userVoto)) {
-				listaDeVereadores.get(j).adicionaVotos();
-				System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
-				return true;
-			}
-		}
-		System.out.println("\nCANDIDATO NÃO ENCONTRADO.");
-		return false;
 	}
 //----------------------------------------------------------------------------
 	public void cadastroPrefeito () {

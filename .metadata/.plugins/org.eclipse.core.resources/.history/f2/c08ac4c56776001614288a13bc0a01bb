@@ -147,7 +147,7 @@ public class UrnaEletronica {
 		String userVoto = lerTeclado.next();
 		
 		if (userVoto.equals("branco")) {
-			addBrancoVereador();
+			addBrancoPrefeito();
 			System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
 			return true;
 		}

@@ -83,10 +83,10 @@ public class Principal {
 				if (menu.eleitor()) {
 					do {
 						aux = menu.votarPrefeito(); }
-					while (!aux);
+					while (aux);
 					do {
 						aux2 = menu.votarVereador(); }
-					while (!aux2);
+					while (aux2);
 				}
 				menu.tipoConta();
 				selecao = lerTeclado.nextByte();

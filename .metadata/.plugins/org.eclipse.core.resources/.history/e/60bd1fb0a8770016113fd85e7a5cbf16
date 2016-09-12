@@ -1,0 +1,69 @@
+import java.util.Scanner;
+
+public class Eleitor {
+	
+	private String nome;
+	private int zona;
+	private int secao;
+
+	Scanner lerTeclado = new Scanner(System.in);
+	Administrador adm = new Administrador ();
+
+//-----Construtor-------------------------------------------------------------
+	public Eleitor (String nome, int zona, int secao) {
+		this.nome = nome;
+		this.zona = zona;
+		this.secao = secao;
+	}
+//-----GET E SET--------------------------------------------------------------
+	public String getNome () { return nome; }
+	public int getZona () { return zona; }
+	public int getSecao () { return secao; }
+//----------------------------------------------------------------------------
+	public boolean votarPrefeito () {
+		System.out.println(">>>Prefeito");
+		System.out.print("Número do candidato: ");
+		String userVoto = lerTeclado.next();
+
+		if (userVoto.equals("branco")) {
+			addBrancoPrefeito();
+			return true;
+		}
+		
+		for (int j=0; j<adm.listaDePrefeitos.size();j++) {
+			if (adm.listaDePrefeitos.get(j).getNumeroVotacao().equals(userVoto)) {
+				adm.listaDePrefeitos.get(j).adicionaVotos();
+				return true;
+			}
+			
+		}
+		System.out.println("\nCANDIDATO NÃO ENCONTRADO.");
+		return false;
+	}
+	
+//----------------------------------------------------------------------------
+	public boolean votarVereador () {
+		//@SuppressWarnings("resource")
+		
+		System.out.println(">>>Vereador");
+		System.out.print("Número do candidato: ");
+		String userVoto = lerTeclado.next();
+		
+		if (userVoto.equals("branco")) {
+			addBrancoVereador();
+			System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
+			return true;
+		}
+		
+		for (int j=0; j<adm.listaDeVereadores.size();j++) {
+			if (adm.listaDeVereadores.get(j).getNumeroVotacao().equals(userVoto)) {
+				adm.listaDeVereadores.get(j).adicionaVotos();
+				System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
+				return true;
+			}
+		}
+		System.out.println("\nCANDIDATO NÃO ENCONTRADO.");
+		return false;
+	}
+
+}

@@ -1,0 +1,10 @@
+import java.util.Scanner;
+
+public class Administrador {
+	private String senhaMaster;
+	
+	public String getSenha () { return senhaMaster; }
+	
+	public void setSenha (String senha) { senha = senhaMaster; }
+	
+}

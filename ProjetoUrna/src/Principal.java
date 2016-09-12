@@ -1,67 +1,72 @@
 import java.util.*;
 
 public class Principal {
-
+		
 	public static void main(String[] args) 
 	{	
 		@SuppressWarnings("resource")
 		
 		Scanner lerTeclado = new Scanner(System.in);
-		UrnaEletronica menu = new UrnaEletronica();
+		
+		UrnaEletronica urna = new UrnaEletronica();
+		Administrador adm = new Administrador();
+		Eleitor eleitor = new Eleitor();
+
 		
 		boolean auxSenha, sair=true, sair2=true;
 		byte opcao;
 
-		menu.tipoConta();
+		urna.tipoConta();
 		byte selecao = lerTeclado.nextByte();
 		
 		//---------------------------------------------------------------------------
 		while (sair) {
-			switch (selecao) 
-			{
+			switch (selecao) {
+			
 			case 0: //Encerrar
 				System.out.println("------------------------------");
 				System.out.print("O programa foi encerrado!");
 				sair = false;
+				
 				break;
 			case 1: //Administrativo
-				auxSenha = menu.verificaSenha();
+				auxSenha = urna.verificaSenha();
 				
 				if (auxSenha) {
 					sair2 = true;
-					menu.administrativo();
+					urna.administrativo();
 					opcao = lerTeclado.nextByte();
 					
 					//---------------------------------------------------------------
 					while (sair2) {
 						switch (opcao) {
 						case 0: //Voltar
-							menu.tipoConta();
+							urna.tipoConta();
 							selecao = lerTeclado.nextByte();
 							sair2 = false;
 							
 							break;
 						case 1: //CadastroPrefeito
-							menu.cadastroPrefeito();
-							menu.administrativo();
+							urna.inserirPrefeito(adm.cadastroCandidadto(opcao));
+							urna.administrativo();
 							opcao = lerTeclado.nextByte();
 							
 							break;
 						case 2: //CadastroVereador
-							menu.cadastroVereador();
-							menu.administrativo();
+							urna.inserirVereador(adm.cadastroCandidadto(opcao));
+							urna.administrativo();
 							opcao = lerTeclado.nextByte();
 							
 							break;
 						case 3: //CadastroEleitor
-							menu.cadastroEleitor();
-							menu.administrativo();
+							urna.inserirEleitor(adm.cadastroEleitor());
+							urna.administrativo();
 							opcao = lerTeclado.nextByte();
 							
 							break;
 						case 4: //Resultados
-							menu.resultado();
-							menu.administrativo();
+							urna.resultado();
+							urna.administrativo();
 							opcao = lerTeclado.nextByte();
 							
 							break;
@@ -74,21 +79,21 @@ public class Principal {
 					//---------------------------------------------------------------
 				} else {
 				System.out.println("\nSenha Invalida!");
-				menu.tipoConta();
+				urna.tipoConta();
 				selecao = lerTeclado.nextByte();
 				}
 				break;
 			case 2: //Eleitor
 				boolean aux, aux2;
-				if (menu.eleitor()) {
+				if (urna.eleitor()) {
 					do {
-						aux = menu.votarPrefeito(); }
+						aux = eleitor.votarPrefeito(); }
 					while (!aux);
 					do {
-						aux2 = menu.votarVereador(); }
+						aux2 = eleitor.votarVereador(); }
 					while (!aux2);
 				}
-				menu.tipoConta();
+				urna.tipoConta();
 				selecao = lerTeclado.nextByte();
 				break;
 				

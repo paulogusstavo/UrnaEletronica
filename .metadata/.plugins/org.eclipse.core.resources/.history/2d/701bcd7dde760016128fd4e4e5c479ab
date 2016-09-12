@@ -1,0 +1,22 @@
+
+public class Candidato {
+	private String nome;
+	private String numeroVotacao;
+	private String tipo; //Prefeito || Vereador
+	private int votos; 
+
+	public Candidato (String nome, String numeroVotacao, String tipo ) {
+		this.nome = nome;
+		this.numeroVotacao = numeroVotacao;	
+		this.tipo = tipo;
+	}
+	
+	public void adicionaVotos () { votos++; }
+	
+	public int getVotos () { return votos; }
+	
+	public String getNome () { return nome; }
+	
+	public String getNumeroVotacao () { return numeroVotacao; }
+
+}

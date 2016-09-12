@@ -1,16 +1,27 @@
 import java.util.*;
-import java.util.ArrayList;
 
 public class UrnaEletronica {
-	private String senhaMaster;
+	
+//	private ArrayList<Administrador> listaDeAdministradores = new ArrayList<Administrador>();
+	private ArrayList<Candidato> listaDePrefeitos = new ArrayList<Candidato>();
+	private ArrayList<Candidato> listaDeVereadores = new ArrayList<Candidato>();
+	private ArrayList<Eleitor> listaDeEleitores = new ArrayList<Eleitor>();
+	
 	private int brancoPrefeito;
 	private int brancoVereador;
 	
-	ArrayList<Eleitor> listaDeEleitores = new ArrayList<Eleitor>();
-	ArrayList<Prefeito> listaDePrefeitos = new ArrayList<Prefeito>();
-	ArrayList<Vereador> listaDeVereadores = new ArrayList<Vereador>();
-		
+	Scanner lerTeclado = new Scanner(System.in);
+	Administrador adm = new Administrador();
+	
 //-----SET E GET--------------------------------------------------------------	
+	public void inserirPrefeito (Candidato p) { listaDePrefeitos.add(p); }
+	public void inserirVereador (Candidato v) { listaDeVereadores.add(v); }
+	public void inserirEleitor (Eleitor e) { listaDeEleitores.add(e); }
+
+	public ArrayList<Candidato> getListaDePrefeitos() { return listaDePrefeitos; }
+	public ArrayList<Candidato> getListaDeVereadores() { return listaDeVereadores; }
+	public ArrayList<Eleitor> getListaDeEleitores() { return listaDeEleitores; }
+	
 	public void addBrancoPrefeito () { brancoPrefeito++; }
 	public int getBrancoPrefeito () { return brancoPrefeito; }
 	
@@ -36,18 +47,17 @@ public class UrnaEletronica {
 	}
 //----------------------------------------------------------------------------
 	public boolean verificaSenha () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		if (this.senhaMaster == null) {
+		if (adm.getSenha() == null) {
 			System.out.println("----------1º ACESSO----------");
 			System.out.print("Informe uma senha: ");
-			this.senhaMaster = lerTeclado.nextLine();
+			String senha = lerTeclado.nextLine();
+			adm.setSenha(senha);
 			return true;
 		}
 		else {
 			System.out.print("Digite sua senha: ");
 			String senhaTemp = lerTeclado.nextLine();
-			if(senhaMaster.equals(senhaTemp)) {
+			if(adm.getSenha().equals(senhaTemp)) {
 				return true;
 			} else {
 				return false; }
@@ -80,8 +90,6 @@ public class UrnaEletronica {
 	}
 //----------------------------------------------------------------------------
 	public boolean eleitor () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
 		System.out.println("----------VOTAÇÃO----------");
 		if (listaDeEleitores.size() == 0) {
 			System.out.println("Nenhum eleitor cadastrado.\n");
@@ -113,98 +121,6 @@ public class UrnaEletronica {
 			}
 		}
 		return true;
-	}
-//----------------------------------------------------------------------------
-	public boolean votarPrefeito () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println(">>>Prefeito");
-		System.out.print("Número do candidato: ");
-		String userVoto = lerTeclado.next();
-
-		if (userVoto.equals("branco")) {
-			addBrancoPrefeito();
-			return true;
-		}
-		
-		for (int j=0; j<listaDePrefeitos.size();j++) {
-			if (listaDePrefeitos.get(j).getNumeroVotacao().equals(userVoto)) {
-				listaDePrefeitos.get(j).adicionaVotos();
-				return true;
-			}
-			
-		}
-		System.out.println("\nCANDIDATO NÃO ENCONTRADO.");
-		return false;
-	}
-	
-//----------------------------------------------------------------------------
-	public boolean votarVereador () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println(">>>Vereador");
-		System.out.print("Número do candidato: ");
-		String userVoto = lerTeclado.next();
-		
-		if (userVoto.equals("branco")) {
-			addBrancoVereador();
-			System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
-			return true;
-		}
-		
-		for (int j=0; j<listaDeVereadores.size();j++) {
-			if (listaDeVereadores.get(j).getNumeroVotacao().equals(userVoto)) {
-				listaDeVereadores.get(j).adicionaVotos();
-				System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
-				return true;
-			}
-		}
-		System.out.println("\nCANDIDATO NÃO ENCONTRADO.");
-		return false;
-	}
-//----------------------------------------------------------------------------
-	public void cadastroPrefeito () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println("----------CADASTRO PREFEITO----------");
-		System.out.print("Nome: ");
-		String nomePrefeito = lerTeclado.nextLine();
-		System.out.print("Número de votação: ");
-		String votPrefeito = lerTeclado.nextLine();
-		
-		Prefeito p = new Prefeito(nomePrefeito, votPrefeito);
-		listaDePrefeitos.add(p);
-		System.out.println("\nCandidato cadastrado com sucesso!");
-	}
-//----------------------------------------------------------------------------
-	public void cadastroVereador () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println("----------CADASTRO VEREADOR----------");
-		System.out.print("Nome: ");
-		String nomeVereador = lerTeclado.nextLine();
-		System.out.print("Número de votação: ");
-		String votVereador = lerTeclado.nextLine();
-		
-		Vereador v = new Vereador(nomeVereador, votVereador);
-		listaDeVereadores.add(v);
-		System.out.println("\nCandidato cadastrado com sucesso!");
-	}
-//----------------------------------------------------------------------------
-	public void cadastroEleitor () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println("----------CADASTRO ELEITORES----------");
-		System.out.print("Nome: ");
-		String nome = lerTeclado.nextLine();
-		System.out.print("ZONA: ");
-		int zona = lerTeclado.nextInt();
-		System.out.print("SEÇÃO: ");
-		int secao = lerTeclado.nextInt();
-		
-		Eleitor e = new Eleitor(nome, zona, secao);
-		listaDeEleitores.add(e);
-		System.out.println("\nEleitor cadastrado com sucesso!");
 	}
 //----------------------------------------------------------------------------
 }

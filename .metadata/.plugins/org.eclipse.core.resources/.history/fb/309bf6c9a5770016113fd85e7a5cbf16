@@ -1,0 +1,34 @@
+
+public class Administrador {
+	
+	private String senhaMaster;
+	
+//-----SET E GET---------------------------------------------------------	
+	public String getSenha () { return senhaMaster; }
+	public void setSenha (String senha) { senha = senhaMaster; }
+//-----------------------------------------------------------------------	
+	public void cadastroCandidadto (byte tipo) {
+		if (tipo == 1) { //Prefeito
+			System.out.println("----------CADASTRO PREFEITO----------");
+			System.out.print("Nome: ");
+			String nomePrefeito = lerTeclado.nextLine();
+			System.out.print("Número de votação: ");
+			String votPrefeito = lerTeclado.nextLine();
+			
+			Candidato p = new Candidato(nomePrefeito, votPrefeito);
+			listaDePrefeitos.add(p);
+			System.out.println("\nCandidato cadastrado com sucesso!");
+		} else if (tipo == 2) { //Vereador
+			System.out.println("----------CADASTRO VEREADOR----------");
+			System.out.print("Nome: ");
+			String nomeVereador = lerTeclado.nextLine();
+			System.out.print("Número de votação: ");
+			String votVereador = lerTeclado.nextLine();
+			
+			Candidato v = new Candidato(nomeVereador, votVereador);
+			listaDeVereadores.add(v);
+			System.out.println("\nCandidato cadastrado com sucesso!");
+		}
+	}
+	
+}

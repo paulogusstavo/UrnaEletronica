@@ -10,11 +10,13 @@ public class Eleitor {
 	Scanner lerTeclado = new Scanner(System.in);
 
 //-----Construtor-------------------------------------------------------------
-	public Eleitor (String nome, int zona, int secao, UrnaEletronica urna) {
-		this.urna = urna;
+	public Eleitor (String nome, int zona, int secao) {
 		this.nome = nome;
 		this.zona = zona;
 		this.secao = secao;
+	}
+	public Eleitor () {
+		
 	}
 //-----GET E SET--------------------------------------------------------------
 	public String getNome () { return nome; }
@@ -43,7 +45,7 @@ public class Eleitor {
 	}
 	
 //----------------------------------------------------------------------------
-	public boolean votarVereador () {
+	public static boolean votarVereador () {
 		//@SuppressWarnings("resource")
 		
 		System.out.println(">>>Vereador");

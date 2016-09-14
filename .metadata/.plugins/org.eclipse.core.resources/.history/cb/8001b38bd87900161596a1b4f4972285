@@ -5,13 +5,11 @@ public class Eleitor {
 	private String nome;
 	private int zona;
 	private int secao;
-	private UrnaEletronica urna;
 
 	Scanner lerTeclado = new Scanner(System.in);
 
 //-----Construtor-------------------------------------------------------------
-	public Eleitor (String nome, int zona, int secao, UrnaEletronica urna) {
-		this.urna = urna;
+	public Eleitor (String nome, int zona, int secao) {
 		this.nome = nome;
 		this.zona = zona;
 		this.secao = secao;

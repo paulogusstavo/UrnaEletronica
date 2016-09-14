@@ -1,16 +1,27 @@
 import java.util.*;
-import java.util.ArrayList;
 
 public class UrnaEletronica {
-	private String senhaMaster;
+	
+//	private ArrayList<Administrador> listaDeAdministradores = new ArrayList<Administrador>();
+	private ArrayList<Candidato> listaDePrefeitos = new ArrayList<Candidato>();
+	private ArrayList<Candidato> listaDeVereadores = new ArrayList<Candidato>();
+	private ArrayList<Eleitor> listaDeEleitores = new ArrayList<Eleitor>();
+	
 	private int brancoPrefeito;
 	private int brancoVereador;
 	
-	ArrayList<Eleitor> listaDeEleitores = new ArrayList<Eleitor>();
-	ArrayList<Prefeito> listaDePrefeitos = new ArrayList<Prefeito>();
-	ArrayList<Vereador> listaDeVereadores = new ArrayList<Vereador>();
-		
+	Scanner lerTeclado = new Scanner(System.in);
+	Administrador adm = new Administrador();
+	
 //-----SET E GET--------------------------------------------------------------	
+	public void inserirPrefeito (Candidato p) { listaDePrefeitos.add(p); }
+	public void inserirVereador (Candidato v) { listaDeVereadores.add(v); }
+	public void inserirEleitor (Eleitor e) { listaDeEleitores.add(e); }
+
+	public ArrayList<Candidato> getListaDePrefeitos() { return listaDePrefeitos; }
+	public ArrayList<Candidato> getListaDeVereadores() { return listaDeVereadores; }
+	public ArrayList<Eleitor> getListaDeEleitores() { return listaDeEleitores; }
+	
 	public void addBrancoPrefeito () { brancoPrefeito++; }
 	public int getBrancoPrefeito () { return brancoPrefeito; }
 	
@@ -36,18 +47,17 @@ public class UrnaEletronica {
 	}
 //----------------------------------------------------------------------------
 	public boolean verificaSenha () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		if (this.senhaMaster == null) {
+		if (adm.getSenha() == null) {
 			System.out.println("----------1º ACESSO----------");
 			System.out.print("Informe uma senha: ");
-			this.senhaMaster = lerTeclado.nextLine();
+			String senha = lerTeclado.nextLine();
+			adm.setSenha(senha);
 			return true;
 		}
 		else {
 			System.out.print("Digite sua senha: ");
 			String senhaTemp = lerTeclado.nextLine();
-			if(senhaMaster.equals(senhaTemp)) {
+			if(adm.getSenha().equals(senhaTemp)) {
 				return true;
 			} else {
 				return false; }
@@ -64,7 +74,7 @@ public class UrnaEletronica {
 			System.out.println((i+1) + "." + listaDePrefeitos.get(i).getNome() 
 					+ " - Votos: " + listaDePrefeitos.get(i).getVotos());
 			}
-			System.out.println("\nVotos BRANCOS: " + getBrancoVereador());
+			System.out.println("\nVotos BRANCOS: " + getBrancoPrefeito());
 		}
 		System.out.println("\n>>> VEREADORES");
 		if (listaDeVereadores.size() == 0)
@@ -74,95 +84,43 @@ public class UrnaEletronica {
 			System.out.println((z+1) + "." + listaDeVereadores.get(z).getNome() 
 					+ " - Votos: " + listaDeVereadores.get(z).getVotos());
 			}
-			System.out.println("\nVotos BRANCOS: " + getBrancoPrefeito());
+			System.out.println("\nVotos BRANCOS: " + getBrancoVereador());
 		}
 		
 	}
 //----------------------------------------------------------------------------
-	public void eleitor () {
-		//TODO: Erro de candidato (ultima lista)
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
+	public Eleitor eleitor () {
 		System.out.println("----------VOTAÇÃO----------");
-		if (listaDeEleitores.size() == 0)
+		if (listaDeEleitores.size() == 0) {
 			System.out.println("Nenhum eleitor cadastrado.\n");
+			return null;
+		} else if (listaDePrefeitos.size() == 0){
+			System.out.println("Nenhum Prefeito cadastrado.\n");
+			return null;
+		} else if (listaDeVereadores.size() == 0) {
+			System.out.println("Nenhum Vereador cadastrado.\n");
+			return null;
+		}
 		else {
 			System.out.print("ZONA de votação: ");
 			int zona = lerTeclado.nextInt();
 			System.out.print("SEÇÃO de votação: ");
 			int secao = lerTeclado.nextInt();
 			
-			for (int i=0; i<listaDeEleitores.size();i++) {
+			for (int i=0; i<listaDeEleitores.size();) {
 				if (listaDeEleitores.get(i).getZona() == zona 
 						&& listaDeEleitores.get(i).getSecao() == secao) {
 					System.out.println("\nOlá, " + listaDeEleitores.get(i).getNome() + ".\n");
 					System.out.println("Para voto BRANCO, digite branco.");
-					System.out.print("Número do Prefeito: ");
-					String userVoto = lerTeclado.next();
-					
-					if (userVoto.equals("branco")) {
-						votoBranco();
-						continue;
-					}
-					for (int j=0; j<listaDePrefeitos.size();j++) {
-						if (listaDePrefeitos.get(j).getNumeroVotacao().equals(userVoto)) {
-							listaDePrefeitos.get(j).adicionaVotos();
-							System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
-							return;
-						}
-						
-					}
-					System.out.println("\nCANDIDATO NÃO ENCONTRADO.");
+					return listaDeEleitores.get(i);
 				}
 				else {
 					System.out.println("ZONA E/OU SEÇÃO INVÁLIDOS.");
+					return null;
 				}
 			}
 		}
-	}
-//----------------------------------------------------------------------------
-	public void cadastroPrefeito () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println("----------CADASTRO PREFEITO----------");
-		System.out.print("Nome: ");
-		String nomePrefeito = lerTeclado.nextLine();
-		System.out.print("Número de votação: ");
-		String votPrefeito = lerTeclado.nextLine();
-		
-		Prefeito p = new Prefeito(nomePrefeito, votPrefeito);
-		listaDePrefeitos.add(p);
-		System.out.println("\nCandidato cadastrado com sucesso!");
-	}
-//----------------------------------------------------------------------------
-	public void cadastroVereador () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println("----------CADASTRO VEREADOR----------");
-		System.out.print("Nome: ");
-		String nomeVereador = lerTeclado.nextLine();
-		System.out.print("Número de votação: ");
-		String votVereador = lerTeclado.nextLine();
-		
-		Vereador v = new Vereador(nomeVereador, votVereador);
-		listaDeVereadores.add(v);
-		System.out.println("\nCandidato cadastrado com sucesso!");
-	}
-//----------------------------------------------------------------------------
-	public void cadastroEleitor () {
-		@SuppressWarnings("resource")
-		Scanner lerTeclado = new Scanner(System.in);
-		System.out.println("----------CADASTRO ELEITORES----------");
-		System.out.print("Nome: ");
-		String nome = lerTeclado.nextLine();
-		System.out.print("ZONA: ");
-		int zona = lerTeclado.nextInt();
-		System.out.print("SEÇÃO: ");
-		int secao = lerTeclado.nextInt();
-		
-		Eleitor e = new Eleitor(nome, zona, secao);
-		listaDeEleitores.add(e);
-		System.out.println("\nEleitor cadastrado com sucesso!");
+		return null;
 	}
 //----------------------------------------------------------------------------
 }

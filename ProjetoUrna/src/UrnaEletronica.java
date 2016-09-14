@@ -9,11 +9,17 @@ public class UrnaEletronica {
 	
 	private int brancoPrefeito;
 	private int brancoVereador;
+	private Administrador adm;
 	
 	Scanner lerTeclado = new Scanner(System.in);
-	Administrador adm = new Administrador();
 	
-//-----SET E GET--------------------------------------------------------------	
+	public UrnaEletronica (Administrador adm) {
+		this.adm = adm;
+	}
+	
+//-----SET E GET--------------------------------------------------------------
+	public void inserirAdministrador (Administrador a) { this.adm = a; }
+	
 	public void inserirPrefeito (Candidato p) { listaDePrefeitos.add(p); }
 	public void inserirVereador (Candidato v) { listaDeVereadores.add(v); }
 	public void inserirEleitor (Eleitor e) { listaDeEleitores.add(e); }
@@ -62,7 +68,7 @@ public class UrnaEletronica {
 			} else {
 				return false; }
 		}
-	}
+	} 
 //----------------------------------------------------------------------------
 	public void resultado () {
 		System.out.println("----------RESULTADO FINAL----------");
@@ -89,17 +95,17 @@ public class UrnaEletronica {
 		
 	}
 //----------------------------------------------------------------------------
-	public boolean eleitor () {
+	public Eleitor eleitor () {
 		System.out.println("----------VOTAÇÃO----------");
 		if (listaDeEleitores.size() == 0) {
 			System.out.println("Nenhum eleitor cadastrado.\n");
-			return false;
+			return null;
 		} else if (listaDePrefeitos.size() == 0){
 			System.out.println("Nenhum Prefeito cadastrado.\n");
-			return false;
+			return null;
 		} else if (listaDeVereadores.size() == 0) {
 			System.out.println("Nenhum Vereador cadastrado.\n");
-			return false;
+			return null;
 		}
 		else {
 			System.out.print("ZONA de votação: ");
@@ -112,15 +118,15 @@ public class UrnaEletronica {
 						&& listaDeEleitores.get(i).getSecao() == secao) {
 					System.out.println("\nOlá, " + listaDeEleitores.get(i).getNome() + ".\n");
 					System.out.println("Para voto BRANCO, digite branco.");
-					return true;
+					return listaDeEleitores.get(i);
 				}
 				else {
 					System.out.println("ZONA E/OU SEÇÃO INVÁLIDOS.");
-					return false;
+					return null;
 				}
 			}
 		}
-		return true;
+		return null;
 	}
 //----------------------------------------------------------------------------
 }

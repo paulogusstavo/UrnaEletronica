@@ -3,13 +3,8 @@ import java.util.Scanner;
 public class Administrador {
 	
 	private String senhaMaster;
-	private UrnaEletronica urna;
 	
 	Scanner lerTeclado = new Scanner(System.in);
-	
-	public Administrador (UrnaEletronica urna) {
-		this.urna = urna;
-	}
 	
 //-----SET E GET---------------------------------------------------------	
 	public String getSenha () { return senhaMaster; }
@@ -49,7 +44,7 @@ public class Administrador {
 		System.out.print("SEÇÃO: ");
 		int secao = lerTeclado.nextInt();
 		
-		Eleitor e = new Eleitor(nome, zona, secao, urna);
+		Eleitor e = new Eleitor(nome, zona, secao);
 		System.out.println("\nEleitor cadastrado com sucesso!");
 		return e;
 	}

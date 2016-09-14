@@ -7,10 +7,6 @@ public class Administrador {
 	
 	Scanner lerTeclado = new Scanner(System.in);
 	
-	public Administrador (UrnaEletronica urna) {
-		this.urna = urna;
-	}
-	
 //-----SET E GET---------------------------------------------------------	
 	public String getSenha () { return senhaMaster; }
 	public void setSenha (String senha) { senha = senhaMaster; }

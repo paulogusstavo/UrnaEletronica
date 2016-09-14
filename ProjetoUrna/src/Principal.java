@@ -8,12 +8,12 @@ public class Principal {
 		
 		Scanner lerTeclado = new Scanner(System.in);
 		
-		UrnaEletronica urna = new UrnaEletronica();
-		Administrador adm = new Administrador();
-		Eleitor eleitor = new Eleitor();
+		UrnaEletronica urna = new UrnaEletronica(null);
+		Administrador adm = new Administrador(urna);
+	//	Eleitor eleitor = new Eleitor();
 
 		
-		boolean auxSenha, sair=true, sair2=true;
+		boolean sair=true, sair2=true;
 		byte opcao;
 
 		urna.tipoConta();
@@ -30,9 +30,9 @@ public class Principal {
 				
 				break;
 			case 1: //Administrativo
-				auxSenha = urna.verificaSenha();
+			//	auxSenha = urna.verificaSenha();
 				
-				if (auxSenha) {
+			//	if (auxSenha) {
 					sair2 = true;
 					urna.administrativo();
 					opcao = lerTeclado.nextByte();
@@ -77,15 +77,18 @@ public class Principal {
 						}
 					}
 					//---------------------------------------------------------------
-				} else {
-				System.out.println("\nSenha Invalida!");
-				urna.tipoConta();
-				selecao = lerTeclado.nextByte();
-				}
-				break;
+				//} 
+			//else {
+			//	System.out.println("\nSenha Invalida!");
+			//	urna.tipoConta();
+			//	selecao = lerTeclado.nextByte();
+			//	}
+			//	break;
 			case 2: //Eleitor
 				boolean aux, aux2;
-				if (urna.eleitor()) {
+				Eleitor eleitor = urna.eleitor();
+				
+				if (eleitor != null) {
 					do {
 						aux = eleitor.votarPrefeito(); }
 					while (!aux);

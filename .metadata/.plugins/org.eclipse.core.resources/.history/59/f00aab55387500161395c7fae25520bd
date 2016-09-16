@@ -1,8 +1,0 @@
-
-public class Candidato {
-	private int CPF;
-	private String nome;
-	private int numeroVotacao;
-
-
-}

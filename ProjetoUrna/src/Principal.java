@@ -8,12 +8,10 @@ public class Principal {
 		
 		Scanner lerTeclado = new Scanner(System.in);
 		
-		UrnaEletronica urna = new UrnaEletronica(null);
-		Administrador adm = new Administrador(urna);
-	//	Eleitor eleitor = new Eleitor();
-
+		UrnaEletronica urna = new UrnaEletronica();
+		Administrador adm = new Administrador();
 		
-		boolean sair=true, sair2=true;
+		boolean auxSenha, sair=true, sair2=true;
 		byte opcao;
 
 		urna.tipoConta();
@@ -30,9 +28,9 @@ public class Principal {
 				
 				break;
 			case 1: //Administrativo
-			//	auxSenha = urna.verificaSenha();
+				auxSenha = urna.verificaSenha(adm);
 				
-			//	if (auxSenha) {
+			if (auxSenha) {
 					sair2 = true;
 					urna.administrativo();
 					opcao = lerTeclado.nextByte();
@@ -47,19 +45,19 @@ public class Principal {
 							
 							break;
 						case 1: //CadastroPrefeito
-							urna.inserirPrefeito(adm.cadastroCandidadto(opcao));
+							urna.cadastroCandidadto(opcao);
 							urna.administrativo();
 							opcao = lerTeclado.nextByte();
 							
 							break;
 						case 2: //CadastroVereador
-							urna.inserirVereador(adm.cadastroCandidadto(opcao));
+							urna.cadastroCandidadto(opcao);
 							urna.administrativo();
 							opcao = lerTeclado.nextByte();
 							
 							break;
 						case 3: //CadastroEleitor
-							urna.inserirEleitor(adm.cadastroEleitor());
+							urna.cadastroEleitor();
 							urna.administrativo();
 							opcao = lerTeclado.nextByte();
 							
@@ -77,27 +75,42 @@ public class Principal {
 						}
 					}
 					//---------------------------------------------------------------
-				//} 
-			//else {
-			//	System.out.println("\nSenha Invalida!");
-			//	urna.tipoConta();
-			//	selecao = lerTeclado.nextByte();
-			//	}
-			//	break;
+				} 
+			else {
+				System.out.println("\nSenha Invalida!");
+				urna.tipoConta();
+				selecao = lerTeclado.nextByte();
+				}
+				break;
 			case 2: //Eleitor
 				boolean aux, aux2;
 				Eleitor eleitor = urna.eleitor();
 				
-				if (eleitor != null) {
-					do {
-						aux = eleitor.votarPrefeito(); }
-					while (!aux);
-					do {
-						aux2 = eleitor.votarVereador(); }
-					while (!aux2);
+				if (eleitor == null) {
+					urna.tipoConta();
+					selecao = lerTeclado.nextByte();
+					break;
 				}
-				urna.tipoConta();
-				selecao = lerTeclado.nextByte();
+				
+				if (!eleitor.getVotou()) {
+					System.out.println("Para voto BRANCO, digite branco.");
+					if (eleitor != null) {
+						do {
+							aux = urna.votarPrefeito();
+							eleitor.setVotar();	}
+						while (!aux);
+						do {
+							aux2 = urna.votarVereador();
+							eleitor.setVotar();	}
+						while (!aux2);
+					}
+					urna.tipoConta();
+					selecao = lerTeclado.nextByte();	
+				}
+				else{
+					System.out.println("Votação não permitida! Usuário já votou.1");
+					urna.tipoConta();
+					selecao = lerTeclado.nextByte();}
 				break;
 				
 			default: 

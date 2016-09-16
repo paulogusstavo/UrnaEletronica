@@ -1,0 +1,22 @@
+
+public class Eleitor {
+	
+	private String nome;
+	private int zona;
+	private int secao;
+	private boolean votou;
+
+//-----Construtor------------------------------------------------------------
+	public Eleitor (String nome, int zona, int secao, boolean votou) {
+		this.nome = nome;
+		this.zona = zona;
+		this.secao = secao;
+		this.votou = votou;
+	}
+//-----GET E SET--------------------------------------------------------------
+	public String getNome () { return nome; }
+	public int getZona () { return zona; }
+	public int getSecao () { return secao; }
+	public boolean geVotou() { return votou; }
+//----------------------------------------------------------------------------		
+}

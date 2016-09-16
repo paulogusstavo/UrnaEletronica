@@ -1,0 +1,12 @@
+import java.util.ArrayList;
+
+public class DadosCadastrais {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		private ArrayList<Pessoa> listaDePessoas = new ArrayList<Pessoa>();
+		
+	}
+
+}

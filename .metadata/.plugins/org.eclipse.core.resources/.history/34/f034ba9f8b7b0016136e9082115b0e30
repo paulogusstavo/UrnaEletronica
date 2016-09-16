@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class DadosCadastrais {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		ArrayList<Pessoa> listaDePessoas = new ArrayList<Pessoa>();
+		
+		Scanner lerTeclado = new Scanner(System.in);
+		
+		System.out.print("Informe seu nome: ");
+		String nome = lerTeclado.nextLine();
+		System.out.print("Informe seu email: ");
+		String email = lerTeclado.nextLine();
+		
+		Pessoa p = new Pessoa(nome, email);
+		listaDePessoas.add(p);
+	}
+
+}

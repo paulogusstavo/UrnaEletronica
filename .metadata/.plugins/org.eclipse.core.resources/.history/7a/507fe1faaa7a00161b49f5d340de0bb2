@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Eleitor {
+	
+	private String nome;
+	private int zona;
+	private int secao;
+
+	Scanner lerTeclado = new Scanner(System.in);
+
+//-----Construtor-------------------------------------------------------------
+	public Eleitor (String nome, int zona, int secao) {
+		this.nome = nome;
+		this.zona = zona;
+		this.secao = secao;
+	}
+//-----GET E SET--------------------------------------------------------------
+	public String getNome () { return nome; }
+	public int getZona () { return zona; }
+	public int getSecao () { return secao; }
+
+}

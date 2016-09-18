@@ -10,10 +10,6 @@ public class UrnaEletronica {
 	private int brancoVereador;
 	
 //-----SET E GET---------------------------------------------------------------------------	
-	public ArrayList<Candidato> getListaDePrefeitos() { return listaDePrefeitos; }
-	public ArrayList<Candidato> getListaDeVereadores() { return listaDeVereadores; }
-	public ArrayList<Eleitor> getListaDeEleitores() { return listaDeEleitores; }
-	
 	public void addBrancoPrefeito () { brancoPrefeito++; }
 	public int getBrancoPrefeito () { return brancoPrefeito; }
 	
@@ -23,22 +19,37 @@ public class UrnaEletronica {
 	public void tipoConta () {
 		System.out.println("----------SELECIONE A CONTA----------");
 		System.out.println("1.Adminstrador");
-		System.out.println("2.Eleitor");
+		System.out.println("2.Votação");
 		System.out.println("\n0.Encerrar");
 		System.out.print("Opção:");
 }
 //-----------------------------------------------------------------------------------------
-	public void administrativo () {
-		System.out.println("----------ADMINISTRADOR----------");
-		System.out.println("1.Cadastro de Prefeito");
-		System.out.println("2.Cadastro de Vereador");
-		System.out.println("3.Cadastro de Eleitor");
-		System.out.println("4.Resultados");
-		System.out.println("\n0.Voltar");
-		System.out.print("Opção:");
+	public void administrativo (boolean votacao) {
+		if (votacao) { //Votação iniciada
+			System.out.println("----------ADMINISTRADOR----------");
+			System.out.println("1.Resultados");
+			System.out.println("2.Iniciar nova eleição");
+			System.out.println("\n0.Voltar");
+			System.out.print("Opção:");
+		} else {
+			System.out.println("----------ADMINISTRADOR----------");
+			System.out.println("1.Cadastro de Prefeito");
+			System.out.println("2.Cadastro de Vereador");
+			System.out.println("3.Cadastro de Eleitor");
+			if (!listaDePrefeitos.isEmpty())
+				System.out.println("4.Remover Prefeito");
+			if (!listaDeVereadores.isEmpty())
+				System.out.println("5.Remover Vereador");
+			if (!listaDeEleitores.isEmpty())
+				System.out.println("6.Remover Eleitor");
+
+			System.out.println("8.Resultados");
+			System.out.println("\n0.Voltar");
+			System.out.print("Opção:");
+		}
 	}
 //-----------------------------------------------------------------------------------------
-	public boolean verificaSenha (Administrador adm) {
+	public boolean verificarSenha (Administrador adm) {
 		@SuppressWarnings("resource")
 		Scanner lerTeclado = new Scanner(System.in);
 		if (adm.getSenha() == null) {
@@ -58,7 +69,7 @@ public class UrnaEletronica {
 		}
 	} 
 //-----------------------------------------------------------------------------------------
-	public void cadastroCandidadto (byte tipo) {
+	public void cadastrarCandidato (byte tipo) {
 		@SuppressWarnings("resource")
 		Scanner lerTeclado = new Scanner(System.in);
 		if (tipo == 1) { //Prefeito
@@ -88,18 +99,89 @@ public class UrnaEletronica {
 		}
 	}
 //-----------------------------------------------------------------------------------------	
-	public void cadastroEleitor () {
+	public boolean removerPessoa (byte tipo) {
+		@SuppressWarnings("resource")
+		Scanner lerTeclado = new Scanner(System.in);
+		System.out.println("----------REMOÇÃO----------");
+		System.out.println("Insira o nome completo ou parcial.");
+		System.out.print("Nome: ");
+		String nome = lerTeclado.nextLine();
+		
+		if (tipo == 4){ //Prefeito
+			for (int j=0; j<listaDePrefeitos.size();) {
+				if (listaDePrefeitos.get(j).getNome().contains(nome)) {
+					System.out.println("Candidato: " + listaDePrefeitos.get(j).getNome() + " - " + listaDePrefeitos.get(j).getPartido());
+					System.out.println("Confirma EXCLUSÃO? -- 1.SIM / 2.NÃO --");
+					System.out.print("Opção: ");
+					byte confirmacao = lerTeclado.nextByte();
+					if (confirmacao == 1) {
+						listaDePrefeitos.remove(j);
+						return true;
+					}
+					else
+						return false;
+				} else {
+					System.out.println("Nunhum prefeito encontrado.");
+					return false;
+				}
+			}
+			
+		} else if (tipo == 5) { //Vereador
+			for (int j=0; j<listaDeVereadores.size();) {
+				if (listaDeVereadores.get(j).getNome().contains(nome)) {
+					System.out.println("Candidato: " + listaDeVereadores.get(j).getNome() + " - " + listaDeVereadores.get(j).getPartido());
+					System.out.println("Confirma EXCLUSÃO? -- 1.SIM / 2.NÃO --");
+					System.out.print("Opção: ");
+					byte confirmacao = lerTeclado.nextByte();
+					if (confirmacao == 1) {
+						listaDeVereadores.remove(j);
+						return true;
+					}
+					else
+						return false;
+				} else {
+					System.out.println("Nunhum vereador encontrado.");
+					return false;
+				}
+			}
+			
+		} else if (tipo == 6) { //Eleitor
+			for (int j=0; j<listaDeEleitores.size();) {
+				if (listaDeEleitores.get(j).getNome().contains(nome)) {
+					System.out.println("Candidato: " + listaDeEleitores.get(j).getNome() + " - " + listaDeEleitores.get(j).getTitulo());
+					System.out.println("Confirma EXCLUSÃO? -- 1.SIM / 2.NÃO --");
+					System.out.print("Opção: ");
+					byte confirmacao = lerTeclado.nextByte();
+					if (confirmacao == 1) {
+						listaDeEleitores.remove(j);
+						return true;
+					}
+					else
+						return false;
+				} else {
+					System.out.println("Nunhum eleitor encontrado.");
+					return false;
+				}
+			}
+			
+		}
+		return false;
+	}
+//-----------------------------------------------------------------------------------------		
+	public void cadastrarEleitor () {
 		@SuppressWarnings("resource")
 		Scanner lerTeclado = new Scanner(System.in);
 		System.out.println("----------CADASTRO ELEITORES----------");
 		System.out.print("Nome: ");
 		String nome = lerTeclado.nextLine();
+		System.out.print("Título de Eleitor: ");
+		int titulo = lerTeclado.nextInt();
 		System.out.print("ZONA: ");
 		int zona = lerTeclado.nextInt();
 		System.out.print("SEÇÃO: ");
 		int secao = lerTeclado.nextInt();
 		
-		Eleitor e = new Eleitor(nome, zona, secao);
+		Eleitor e = new Eleitor(nome, titulo, zona, secao);
 		listaDeEleitores.add(e);
 		System.out.println("\nEleitor cadastrado com sucesso!");
 	}
@@ -173,7 +255,6 @@ public class UrnaEletronica {
 	public boolean votarVereador () {
 		@SuppressWarnings("resource")
 		Scanner lerTeclado = new Scanner(System.in);
-		
 		System.out.println(">>>Vereador");
 		System.out.print("Número do candidato: ");
 		String userVoto = lerTeclado.next();
@@ -199,6 +280,7 @@ public class UrnaEletronica {
 				byte confirmacao = lerTeclado.nextByte();
 				if (confirmacao == 1) {
 					listaDeVereadores.get(j).adicionaVotos();
+					System.out.println("\n-------VOTAÇÃO REALIZADA COM SUCESSO!-------\n");
 					return true;
 				}
 				else
@@ -211,7 +293,7 @@ public class UrnaEletronica {
 		return false;
 	}
 //-----------------------------------------------------------------------------------------
-	public Eleitor eleitor () {
+	public Eleitor verificarEleitor () {
 		@SuppressWarnings("resource")
 		Scanner lerTeclado = new Scanner(System.in);
 		System.out.println("----------VOTAÇÃO----------");
@@ -226,6 +308,18 @@ public class UrnaEletronica {
 			return null;
 		}
 		else {
+			System.out.print("Título de Eleitor: ");
+			int titulo = lerTeclado.nextInt();
+			
+			for (int z=0; z<listaDeEleitores.size();z++) {
+				if (listaDeEleitores.get(z).getTitulo() == titulo)
+					continue;
+				else {
+					System.out.println("\nELEITOR NÃO ENCONTRADO.");
+					return null;
+				}
+			}
+			
 			System.out.print("ZONA de votação: ");
 			int zona = lerTeclado.nextInt();
 			System.out.print("SEÇÃO de votação: ");
@@ -246,4 +340,22 @@ public class UrnaEletronica {
 		return null;
 	}
 //-----------------------------------------------------------------------------------------
+	public boolean novaEleicao () {
+		@SuppressWarnings("resource")
+		Scanner lerTeclado = new Scanner(System.in);
+		System.out.println("----------NOVA ELEIÇÃO----------");
+		System.out.println("Confirma EXCLUSÃO? -- 1.SIM / 2.NÃO --");
+		System.out.print("Opção: ");
+		byte confirmacao = lerTeclado.nextByte();
+		if (confirmacao == 1) {
+			listaDeEleitores.clear();
+			listaDeVereadores.clear();
+			listaDePrefeitos.clear();
+			System.out.println("\n----------DADOS APAGADOS!----------\n");
+			return true;
+		} else 
+			return false;
+	}
+//-----------------------------------------------------------------------------------------
+
 }

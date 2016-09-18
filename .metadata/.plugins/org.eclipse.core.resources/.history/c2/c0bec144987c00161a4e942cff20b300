@@ -1,0 +1,176 @@
+import java.util.*;
+
+public class Principal {
+	//Author: Paulo Gustavo Zanese
+	//MARK: Description on file "Descrição.pdf"
+	
+	public static void main(String[] args) 
+	{
+		@SuppressWarnings("resource")
+		Scanner lerTeclado = new Scanner(System.in);
+		
+		UrnaEletronica urna = new UrnaEletronica();
+		Administrador adm = new Administrador();
+		
+		boolean auxSenha, sair=true, sair2=true, inicioVotacao=false;
+		byte opcao;
+
+		urna.tipoConta();
+		byte selecao = lerTeclado.nextByte();
+		
+		//---------------------------------------------------------------------------
+		while (sair) {
+			switch (selecao) {
+			
+			case 0: //Encerrar
+				System.out.println("------------------------------");
+				System.out.print("O programa foi encerrado!");
+				sair = false;
+				
+				break;
+			case 1: //Administrativo
+				auxSenha = urna.verificaSenha(adm);
+				
+			if (auxSenha) {
+					sair2 = true;
+					urna.administrativo(inicioVotacao);
+					opcao = lerTeclado.nextByte();
+					
+					//---------------------------------------------------------------
+					while (sair2) {
+						switch (opcao) {
+						case 0: //Voltar
+							urna.tipoConta();
+							selecao = lerTeclado.nextByte();
+							sair2 = false;
+							
+							break;
+						case 1: //CadastroPrefeito
+							if (inicioVotacao == true) { //Redirecionamento
+								opcao = 8; break;}
+							urna.cadastroCandidadto(opcao);
+							urna.administrativo(inicioVotacao);
+							opcao = lerTeclado.nextByte();
+							
+							break;
+						case 2: //CadastroVereador
+							if (inicioVotacao == true) { //Redirecionamento
+								opcao = 7; break;}
+							urna.cadastroCandidadto(opcao);
+							urna.administrativo(inicioVotacao);
+							opcao = lerTeclado.nextByte();
+							
+							break;
+						case 3: //CadastroEleitor
+							if (inicioVotacao == true) { //Redirecionamento
+								opcao = -1; break;}
+							urna.cadastroEleitor();
+							urna.administrativo(inicioVotacao);
+							opcao = lerTeclado.nextByte();
+							
+							break;
+						case 4: //RemoverPrefeito
+							if (inicioVotacao == true) { //Redirecionamento
+								opcao = -1; break;}
+							urna.remocaoCandidadto(opcao);
+							urna.administrativo(inicioVotacao);
+							opcao = lerTeclado.nextByte();
+							break;	
+						case 5: //RemoverVereador
+							if (inicioVotacao == true) { //Redirecionamento
+								opcao = -1; break;}
+							urna.remocaoCandidadto(opcao);
+							urna.administrativo(inicioVotacao);
+							opcao = lerTeclado.nextByte();
+							break;
+						case 6: //RemoverEleitor
+							if (inicioVotacao == true) { //Redirecionamento
+								opcao = -1; break;}
+							//TODO
+							urna.administrativo(inicioVotacao);
+							opcao = lerTeclado.nextByte();
+							break;
+						case 7: //NovaEleição
+							if (inicioVotacao == true) { //Redirecionamento
+								opcao = -1; break;}
+							urna.novaEleicao();
+							urna.administrativo(inicioVotacao);
+							opcao = lerTeclado.nextByte();
+							break;
+						case 8: //Resultados
+							urna.resultado();
+							urna.administrativo(inicioVotacao);
+							opcao = lerTeclado.nextByte();
+							
+							break;
+						default:
+							System.out.print("Opção inválida, digite uma opção:");
+							opcao = lerTeclado.nextByte();
+							break;
+						}
+					}
+					//---------------------------------------------------------------
+				} 
+			else {
+				System.out.println("\nSenha Invalida!");
+				urna.tipoConta();
+				selecao = lerTeclado.nextByte();
+				}
+				break;
+			case 2: //Eleitor
+				if (!inicioVotacao) {
+					System.out.println("--------------------AVISO--------------------");
+					System.out.println("Ao iniciar a votação, não será possível\nremover/inserir candidatos e eleitores.");
+					System.out.println("CONFIRMA INÍCIO DE VOTAÇÃO? -- 1.SIM / 2.NÃO --");
+					System.out.print("Opção: ");
+					byte conf = lerTeclado.nextByte();
+					
+					if (conf != 1) {
+						System.out.println("Votação não iniciada.");
+						System.out.print("Opção: ");
+						selecao = lerTeclado.nextByte();
+						break;
+					}
+					inicioVotacao = true;
+				}
+				
+				boolean aux, aux2;
+				Eleitor eleitor = urna.eleitor();
+				
+				if (eleitor == null) {
+					inicioVotacao = false;
+					urna.tipoConta();
+					selecao = lerTeclado.nextByte();
+					break;
+				}
+				
+				if (!eleitor.getVotou()) {
+					System.out.println("Para voto BRANCO, digite branco.");
+					if (eleitor != null) {
+						do {
+							aux = urna.votarPrefeito();
+							eleitor.setVotar();	}
+						while (!aux);
+						do {
+							aux2 = urna.votarVereador();
+							eleitor.setVotar();}
+						while (!aux2);
+					}
+					urna.tipoConta();
+					selecao = lerTeclado.nextByte();	
+				}
+				else{
+					System.out.println("Votação não permitida! Usuário já votou.1");
+					urna.tipoConta();
+					selecao = lerTeclado.nextByte();}
+				break;
+				
+			default: 
+				System.out.print("Opção inválida, digite uma opção:");
+				selecao = lerTeclado.nextByte();
+				break;
+			}
+		}
+		//---------------------------------------------------------------------------
+	}
+}

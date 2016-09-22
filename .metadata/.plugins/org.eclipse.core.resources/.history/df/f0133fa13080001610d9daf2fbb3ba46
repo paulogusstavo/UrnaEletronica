@@ -108,55 +108,65 @@ public class UrnaEletronica {
 		String nome = lerTeclado.nextLine();
 		
 		if (tipo == 4){ //Prefeito
-			for (int z=0; z<listaDePrefeitos.size();z++) {
-				if (listaDePrefeitos.get(z).getNome().contains(nome)) {
-					System.out.println("Candidato: " + listaDePrefeitos.get(z).getNome() + " - " 
-							+ listaDePrefeitos.get(z).getPartido());
+			for (int j=0; j<listaDePrefeitos.size();) {
+				if (listaDePrefeitos.get(j).getNome().contains(nome)) {
+					System.out.println("Candidato: " + listaDePrefeitos.get(j).getNome() + " - " 
+				+ listaDePrefeitos.get(j).getPartido());
 					System.out.println("Confirma EXCLUSÃO? -- 1.SIM / 2.NÃO --");
 					System.out.print("Opção: ");
 					byte confirmacao = lerTeclado.nextByte();
 					if (confirmacao == 1) {
-						listaDePrefeitos.remove(z);
+						listaDePrefeitos.remove(j);
 						return true;
 					}
+					else
+						return false;
+				} else {
+					System.out.println("Nunhum prefeito encontrado.");
+					return false;
 				}
 			}
-			System.out.println("Nunhum prefeito encontrado.");
-			return false;
-		} else if (tipo == 5) 
-		{ //Vereador
-			for (int z=0; z<listaDeVereadores.size();z++) {
-				if (listaDeVereadores.get(z).getNome().contains(nome)) {
-					System.out.println("Candidato: " + listaDeVereadores.get(z).getNome() +
-							" - " + listaDeVereadores.get(z).getPartido());
+			
+		} else if (tipo == 5) { //Vereador
+			for (int j=0; j<listaDeVereadores.size();) {
+				if (listaDeVereadores.get(j).getNome().contains(nome)) {
+					System.out.println("Candidato: " + listaDeVereadores.get(j).getNome() +
+							" - " + listaDeVereadores.get(j).getPartido());
 					System.out.println("Confirma EXCLUSÃO? -- 1.SIM / 2.NÃO --");
 					System.out.print("Opção: ");
 					byte confirmacao = lerTeclado.nextByte();
 					if (confirmacao == 1) {
-						listaDeVereadores.remove(z);
+						listaDeVereadores.remove(j);
 						return true;
 					}
+					else
+						return false;
+				} else {
+					System.out.println("Nunhum vereador encontrado.");
+					return false;
 				}
 			}
-			System.out.println("Nunhum vereador encontrado.");
-			return false;
 			
 		} else if (tipo == 6) { //Eleitor
-			for (int z=0; z<listaDeEleitores.size();z++) {
-				if (listaDeEleitores.get(z).getNome().contains(nome)) {
-					System.out.println("Candidato: " + listaDeEleitores.get(z).getNome() +
-							" - " + listaDeEleitores.get(z).getTitulo());
+			for (int j=0; j<listaDeEleitores.size();) {
+				if (listaDeEleitores.get(j).getNome().contains(nome)) {
+					System.out.println("Candidato: " + listaDeEleitores.get(j).getNome() +
+							" - " + listaDeEleitores.get(j).getTitulo());
 					System.out.println("Confirma EXCLUSÃO? -- 1.SIM / 2.NÃO --");
 					System.out.print("Opção: ");
 					byte confirmacao = lerTeclado.nextByte();
 					if (confirmacao == 1) {
-						listaDeEleitores.remove(z);
+						listaDeEleitores.remove(j);
 						return true;
 					}
+					else
+						return false;
+				} else {
+					System.out.println("Nunhum eleitor encontrado.");
+					return false;
 				}
 			}
-			System.out.println("Nunhum eleitor encontrado.");
-			return false;
+			
 		}
 		return false;
 	}

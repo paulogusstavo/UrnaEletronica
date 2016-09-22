@@ -70,7 +70,7 @@ public class Principal {
 							
 							break;
 						case 4: //RemoverPrefeito
-							if (inicioVotacao == true) { //Redirecionamento
+							if (inicioVotacao == false) { //Redirecionamento
 								opcao = -1; break;}
 							urna.removerPessoa(opcao);
 							urna.administrativo(inicioVotacao);
@@ -78,7 +78,7 @@ public class Principal {
 							
 							break;	
 						case 5: //RemoverVereador
-							if (inicioVotacao == true) { //Redirecionamento
+							if (inicioVotacao == false) { //Redirecionamento
 								opcao = -1; break;}
 							urna.removerPessoa(opcao);
 							urna.administrativo(inicioVotacao);
@@ -86,7 +86,7 @@ public class Principal {
 							
 							break;
 						case 6: //RemoverEleitor
-							if (inicioVotacao == true) { //Redirecionamento
+							if (inicioVotacao == false) { //Redirecionamento
 								opcao = -1; break;}
 							urna.removerPessoa(opcao);
 							urna.administrativo(inicioVotacao);

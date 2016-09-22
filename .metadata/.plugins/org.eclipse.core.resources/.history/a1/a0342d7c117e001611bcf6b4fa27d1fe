@@ -62,32 +62,24 @@ public class Principal {
 							
 							break;
 						case 3: //CadastroEleitor
-							if (inicioVotacao == true) { //Redirecionamento
-								opcao = -1; break;}
 							urna.cadastrarEleitor();
 							urna.administrativo(inicioVotacao);
 							opcao = lerTeclado.nextByte();
 							
 							break;
 						case 4: //RemoverPrefeito
-							if (inicioVotacao == true) { //Redirecionamento
-								opcao = -1; break;}
 							urna.removerPessoa(opcao);
 							urna.administrativo(inicioVotacao);
 							opcao = lerTeclado.nextByte();
 							
 							break;	
 						case 5: //RemoverVereador
-							if (inicioVotacao == true) { //Redirecionamento
-								opcao = -1; break;}
 							urna.removerPessoa(opcao);
 							urna.administrativo(inicioVotacao);
 							opcao = lerTeclado.nextByte();
 							
 							break;
 						case 6: //RemoverEleitor
-							if (inicioVotacao == true) { //Redirecionamento
-								opcao = -1; break;}
 							urna.removerPessoa(opcao);
 							urna.administrativo(inicioVotacao);
 							opcao = lerTeclado.nextByte();
@@ -100,8 +92,6 @@ public class Principal {
 							
 							break;
 						case 8: //NovaEleição
-							if (inicioVotacao == false) { //Redirecionamento
-								opcao = -1; break;}
 							if (urna.novaEleicao()) 
 								inicioVotacao=false;
 							urna.administrativo(inicioVotacao);
@@ -125,8 +115,7 @@ public class Principal {
 			case 2: //Eleitor
 				if (!inicioVotacao) {
 					System.out.println("--------------------AVISO--------------------");
-					System.out.println("Ao iniciar a votação, não será possível"
-							+ "\nremover/inserir candidatos e eleitores.");
+					System.out.println("Ao iniciar a votação, não será possível\nremover/inserir candidatos e eleitores.");
 					System.out.println("CONFIRMA INÍCIO DE VOTAÇÃO? -- 1.SIM / 2.NÃO --");
 					System.out.print("Opção: ");
 					byte conf = lerTeclado.nextByte();

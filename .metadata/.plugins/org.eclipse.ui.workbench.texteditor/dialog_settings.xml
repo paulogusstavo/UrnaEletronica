@@ -6,22 +6,23 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="contai" key="selection"/>
+		<item value="remover" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Remover"/>
+			<item value="remover"/>
+			<item value="j"/>
+			<item value="remo"/>
 			<item value="contai"/>
 			<item value="nova"/>
 			<item value="adminis"/>
 			<item value="Titulo"/>
-			<item value="Ti"/>
-			<item value="votar"/>
-			<item value="partido"/>
-			<item value="cadastroCandi"/>
 		</list>
 		<list key="replacehistory">
+			<item value="z"/>
 			<item value="urna"/>
 			<item value="adm.listaDePrefeitos"/>
 			<item value="adm.listaDeVereadores"/>
